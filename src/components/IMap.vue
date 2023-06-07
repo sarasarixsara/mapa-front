@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import markerIcon from "../assets/punto.png";
 import { DevicesRepsository } from "../repositories/implementation/mocked/DevicesRespository"
 import { Device } from "../entities/Device";
@@ -17,6 +17,10 @@ const loadDevices = async () => {
   console.log(devices.value[0].geometry.coordinates);
    // console.log (devices.map(device => device.geometry.coordinates))
 }
+
+onMounted(() => {
+  loadDevices();
+});
 
 //point
 const overrideStyleFunction = (feature: any , style: any) => {
@@ -55,7 +59,7 @@ const featureSelected = (event: any) => {
 
 <template>
   <div id="MapContainer">
-    <button type="button" @click="loadDevices">Press me</button>
+    <!-- <button type="button" @click="loadDevices">Press me</button> -->
     <ol-map :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="height: 400px">
       <ol-view ref="view" :center="center" :rotation="rotation" :zoom="zoom" :projection="projection" />
       <ol-tile-layer>
